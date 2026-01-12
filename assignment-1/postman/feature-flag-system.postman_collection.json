@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "Feature Flag Management System",
+    "description": "Postman collection for testing Feature Flag system with RBAC and rule-based evaluation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"password123\",\n  \"roles\": [\"ADMIN\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.environment.set('token', json.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin - Features",
+      "item": [
+        {
+          "name": "Create Feature",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/features",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "features"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"new_dashboard\",\n  \"enabled\": true,\n  \"allowedRoles\": [\"ADMIN\", \"USER\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update Feature",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/features/new_dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "features", "new_dashboard"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true,\n  \"allowedRoles\": [\"ADMIN\", \"USER\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Set Rule Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/features/new_dashboard/rules",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "features", "new_dashboard", "rules"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User - Feature Evaluation",
+      "item": [
+        {
+          "name": "Evaluate Feature",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/features/evaluate/new_dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["features", "evaluate", "new_dashboard"]
+            },
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
