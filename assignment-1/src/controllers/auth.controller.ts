@@ -3,8 +3,9 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { registerValidation, loginValidation } from '../validations/auth.validation'
 import { findUserByEmail, createUser } from '../repositories/user.repository'
+import { asyncHandler } from '../utils/asyncHandler'
 
-export const registerController = async (req: Request, res: Response) => {
+export const registerController = asyncHandler(async (req: Request, res: Response) => {
   const data = registerValidation.parse(req.body)
 
   const existing = await findUserByEmail(data.email)
@@ -15,9 +16,9 @@ export const registerController = async (req: Request, res: Response) => {
   const user = await createUser(data.email, hashed, data.roles)
 
   res.json({ id: user.id, email: user.email, roles: user.roles })
-}
+})
 
-export const loginController = async (req: Request, res: Response) => {
+export const loginController = asyncHandler(async (req: Request, res: Response) => {
   const data = loginValidation.parse(req.body)
 
   const user = await findUserByEmail(data.email)
@@ -33,4 +34,4 @@ export const loginController = async (req: Request, res: Response) => {
   )
 
   res.json({ token })
-}
+})

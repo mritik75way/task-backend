@@ -15,6 +15,7 @@ export const updateFeature = async (key: string, data: UpdateFeatureInput) => {
 export const findFeatureByKey = async (key: string) => {
   return FeatureModel.findOne({ key })
 }
+
 export const updateRuleGroup = async (
   key: string,
   ruleGroup: RuleGroup

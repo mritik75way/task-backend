@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { evaluateFeature } from '../services/featureEvaluation.service'
 import { asyncHandler } from '../utils/asyncHandler'
 import { AuthRequest } from '../middlewares/auth.middleware'
