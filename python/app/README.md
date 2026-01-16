@@ -10,23 +10,23 @@ The project follows a modular structure to separate concerns between the databas
 ├── app/
 │   ├── api/
 │   │   └── v1/
-│   │       ├── auth.py          # Signup & Login (Token generation)
-│   │       └── users.py         # Protected User & Profile routes
+│   │       ├── auth.py          
+│   │       └── users.py        
 │   ├── core/
-│   │   ├── config.py            # Pydantic Settings & Environment loading
-│   │   ├── security.py          # Password hashing & JWT logic
-│   │   └── exceptions.py        # Global Exception Handlers
+│   │   ├── config.py            
+│   │   ├── security.py          
+│   │   └── exceptions.py        
 │   ├── db/
-│   │   ├── engine.py            # SQLModel Engine configuration
-│   │   ├── models.py            # Unified Schemas & Table Models
-│   │   └── session.py           # DB Session Dependency
+│   │   ├── engine.py            
+│   │   ├── models.py           
+│   │   └── session.py           
 │   ├── middleware/
-│   │   └── auth.py              # Custom JWT Middleware (The Gatekeeper)
-│   └── main.py                  # Entry point & Global configurations
-├── migrations/                  # Alembic Version control
-├── .env                         # Secrets (DO NOT COMMIT TO GIT)
-├── alembic.ini                  # Migration configuration
-└── requirements.txt             # Dependencies
+│   │   └── auth.py              
+│   └── main.py                  
+├── migrations/                  
+├── .env                       
+├── alembic.ini                  
+└── requirements.txt            
 ```
 
 Setup & Installation
