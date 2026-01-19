@@ -14,7 +14,7 @@ git clone <repository-url>
 cd <project-folder>
 ```
 
-### Create and activate a virtual environment
+### Create and activate virtual environment
 
 ```bash
 python -m venv venv
