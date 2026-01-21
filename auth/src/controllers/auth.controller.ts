@@ -18,7 +18,7 @@ export const registerController = async (
     res
       .cookie("refreshToken", data.refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
         sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
@@ -39,7 +39,7 @@ export const loginController = async (
     res
       .cookie("refreshToken", data.refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: false,
         sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
@@ -75,24 +75,21 @@ export const resetPasswordController = async (
   }
 };
 
-export const refreshController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const refreshController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.cookies.refreshToken;
+    const token = req.cookies?.refreshToken;
     if (!token) throw new Error("No refresh token");
 
-    const tokens = await refreshTokens(token);
+    const { accessToken, refreshToken, user } = await refreshTokens(token);
 
-    res.cookie("refreshToken", tokens.refreshToken, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ accessToken: tokens.accessToken });
+    res.json({ accessToken, user }); 
   } catch (err) {
     next(err);
   }

@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 
 from app.core.database import get_db
 from app.modules.files.file_schema import FileResponse, FileListResponse
-from app.modules.files.fiile_share_schema import ShareFileRequest
+from app.modules.files.file_share_schema import ShareFileRequest
 from app.modules.files.file_service import (
     list_files, 
     upload_file, 

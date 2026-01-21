@@ -57,7 +57,7 @@ export const forgotPassword = async (email: string) => {
   const { token, hashedToken } = generateResetToken();
 
   user.resetPasswordToken = hashedToken;
-  user.resetPasswordExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+  user.resetPasswordExpires = new Date(Date.now() + 10 * 60 * 1000); 
   await user.save();
 
   const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;

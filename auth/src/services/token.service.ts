@@ -21,6 +21,7 @@ export const refreshTokens = async (token: string) => {
 
   return {
     accessToken: newAccessToken,
-    refreshToken: newRefreshToken
+    refreshToken: newRefreshToken,
+    user
   };
 };

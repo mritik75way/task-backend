@@ -3,7 +3,7 @@ import { z } from "zod";
 export const registerSchema = z.object({
   name: z.string().min(2),
   email: z.email(),
-  password: z.string().min(8)
+  password: z.string().min(4)
 });
 
 export const loginSchema = z.object({
@@ -16,5 +16,5 @@ export const forgotPasswordSchema = z.object({
 });
 
 export const resetPasswordSchema = z.object({
-  password: z.string().min(8)
+  password: z.string().min(6)
 });
