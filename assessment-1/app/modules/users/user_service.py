@@ -5,7 +5,6 @@ from app.modules.users.user_model import User
 from app.modules.users.user_schema import UserCreate
 from app.core.security import hash_password, verify_password, create_access_token
 
-
 def register_user(db: Session, data: UserCreate) -> User:
     if db.query(User).filter(User.email == data.email).first():
         raise HTTPException(
