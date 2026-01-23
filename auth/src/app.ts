@@ -4,10 +4,13 @@ import cors from 'cors'
 import authRoutes from "./routes/auth.route";
 import filesRouter from './routes/file.route'
 import uploadRouter from './routes/upload.route'
+import subscribeRouter from './routes/subscribe.route'
 import { errorHandler } from "./middlewares/error.middleware";
 import cookieParser from 'cookie-parser'
+import { initWebPush } from "./config/webpush";
 
 dotenv.config();
+initWebPush();
 
 const app = express();
 
@@ -22,6 +25,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/uploads", uploadRouter);
 app.use("/api/files", filesRouter);
+app.use("/api/notifications", subscribeRouter)
 app.use(errorHandler);
 
 export default app;
